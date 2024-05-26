@@ -1,2 +1,2 @@
-# Estaci-n_Meteorol-gica-
+# Estación_Meteorológica 
 Proyecto Final Microprogramación 
