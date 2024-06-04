@@ -8,7 +8,7 @@
 //Variables y constantes a emplear
 //--------------------------------
 //Para el sensor de agua   
-#define pin_Encendido 1
+#define pin_Encendido 12
 #define pin_sensor  A0
 const int BUZZER = 13; //Pin del buzzer
 int valor_Sensor = 0; //Para determinar el valor arrojado por el sensor
@@ -28,9 +28,9 @@ int solVal;
 //--------------------------------
 int SENSOR = 2;
 int temp, humedad;
-int ledRed = 10;
+int ledRed = A4;
 int ledGreen = 11;
-int ledBlue = 12;
+int ledBlue = 10;
 //---------------------------------
 LiquidCrystal lcd(4,5,6,7,8,9);
 DHT dht (SENSOR, DHT11);
@@ -61,6 +61,7 @@ void setup() {
 }
 
 void loop() {
+  motor.write(-5);
   //------------------------------------------
   //llamamos a la funcion encarga del mensaje
   mensajesInicio();
@@ -115,8 +116,8 @@ void loop() {
     valor_Sensor = analogRead(pin_sensor); //Leemos el valor analogico arrojado por el sensor
     digitalWrite(pin_Encendido,LOW); //Apagamos el sensor
     //Imprimimos el valor obtenido
-    Serial.print("Valor del Sensor: ");
-    Serial.println(valor_Sensor);
+    // Serial.print("Valor del Sensor: ");
+    // Serial.println(valor_Sensor);
     if(valor_Sensor > 100){
       lcd.print("Estado del clima");
       lcd.setCursor(0,1);// posicion para la segunda parte del mensaje
@@ -137,17 +138,15 @@ void loop() {
   //------------------------------------------------
   //Llamamos a la funcion de la temperatura
   temperatura();
-  delay(3000);
+  delay(2000);
   lcd.clear();
-  delay(1500);
+  delay(1000);
   //------------------------------------------------
   //Llamamos a la funcion de restrear sol
   //------------------------------------------------
   rastreadorLuzSolar();
-  //------------------------------------------------
   delay(2000);
-  
-
+  //------------------------------------------------
 }
 
 //---------------------------------------------------------------------------
@@ -204,24 +203,44 @@ void mensajesInicio(){
 //Parte donde se trabaja el rastreador del sol
 //---------------------------------------------------------------------------
 void rastreadorLuzSolar(){
-   delay(6000);
+   delay(2000);
     solVal = analogRead(sol);
-    Serial.println(solVal);
+    // Serial.println(solVal);
     delay(100);
     if(solVal <= 60){
-      motor.write(89);
+      motor.write(100);
+      lcd.print("Cielo Totalmente");
+      lcd.setCursor(0,1);
+      lcd.print("Soleado");
+      delay(4000);
+      lcd.clear();
       delay(2000);
     }
     else if(solVal >= 60 && solVal <= 300){
       motor.write(135);
+      lcd.print("Atardecer cielo");
+      lcd.setCursor(0,1);
+      lcd.print("Despejado");
+      delay(4000);
+      lcd.clear();
       delay(2000);
     }
     else if(solVal >= 300 && solVal <= 600){
       motor.write(45);
+      lcd.print("Cielo Nublado");
+      lcd.setCursor(0,1);
+      lcd.print("Parcialmente");
+      delay(1000);
+      lcd.clear();
       delay(2000);
     }
-    else if( solVal >= 1000){
+    else if( solVal >= 600 && solVal <= 1000){
       motor.write(20);
+      lcd.print("Cielo Totalmente");
+      lcd.setCursor(0,1);// posicion para la segunda parte del mensaje
+      lcd.print("Nublado");
+      delay(4000);
+      lcd.clear();
       delay(2000);
     }
     delay(1000);
