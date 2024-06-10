@@ -8,10 +8,11 @@
 //Variables y constantes a emplear
 //--------------------------------
 //Para el sensor de agua   
-#define pin_Encendido 12
+#define pin_Encendido 1
 #define pin_sensor  A0
 const int BUZZER = 13; //Pin del buzzer
 int valor_Sensor = 0; //Para determinar el valor arrojado por el sensor
+String estadoClima = "";
 //---------------------------------------------------------------------
 //Parte del sensor de temperatura LM35
 float vf_mv = 5000.0; //Voltaje de referncia en minivoltios
@@ -115,13 +116,11 @@ void loop() {
     delay(10);
     valor_Sensor = analogRead(pin_sensor); //Leemos el valor analogico arrojado por el sensor
     digitalWrite(pin_Encendido,LOW); //Apagamos el sensor
-    //Imprimimos el valor obtenido
-    // Serial.print("Valor del Sensor: ");
-    // Serial.println(valor_Sensor);
     if(valor_Sensor > 100){
       lcd.print("Estado del clima");
       lcd.setCursor(0,1);// posicion para la segunda parte del mensaje
-      lcd.print("Lluvioso");
+      estadoClima = "lluvioso";
+      lcd.print(estadoClima);
       digitalWrite(BUZZER,HIGH);
       delay(3000);
       digitalWrite(BUZZER,LOW);
@@ -129,7 +128,8 @@ void loop() {
    else{
       lcd.print("Estado del clima");
       lcd.setCursor(0,1);// posicion para la segunda parte del mensaje
-      lcd.print("Despejado");
+      estadoClima = "despejado";
+      lcd.print(estadoClima);
    }
 
   delay(1000);
@@ -145,8 +145,14 @@ void loop() {
   //Llamamos a la funcion de restrear sol
   //------------------------------------------------
   rastreadorLuzSolar();
-  delay(2000);
+  delay(4000);
   //------------------------------------------------
+  //Llamamos a la funcion que se encarga de mandar 
+  //los datos a Node-Red para ir a firebase
+  //------------------------------------------------
+  enviarData();
+  delay(200);
+
 }
 
 //---------------------------------------------------------------------------
@@ -236,7 +242,8 @@ void rastreadorLuzSolar(){
     }
     else if( solVal >= 600 && solVal <= 1000){
       motor.write(20);
-      lcd.print("Cielo Totalmente");
+      //cielo = "cielo totalmente nublado";
+      lcd.print("cielo totalmente");
       lcd.setCursor(0,1);// posicion para la segunda parte del mensaje
       lcd.print("Nublado");
       delay(4000);
@@ -244,4 +251,34 @@ void rastreadorLuzSolar(){
       delay(2000);
     }
     delay(1000);
+}
+
+//-----------------------------------------------------------------------------
+//Funcion Encargada de mandar los datos a Node-Red
+//-----------------------------------------------------------------------------
+void enviarData(){
+  Serial.print("{\"TemperaturaDTH11\":");
+  Serial.print(temp);
+  Serial.print(",\"Humedad\":");
+  Serial.print(humedad);
+  if (valor_Sensor > 100) {
+    Serial.print(",\"Estado\":\"lluvioso\"");
+  } else {
+    Serial.print(",\"Estado\":\"despejado\"");
+  }
+  if(solVal <= 60){
+      Serial.print(",\"Cielo\":\"Cielo Totalmente Soleado\"");
+  }else if(solVal >= 60 && solVal <= 300){
+    Serial.print(",\"Cielo\":\"Atardecer Cielo Despejado\"");
+  }else if(solVal >= 300 && solVal <= 600){
+    Serial.print(",\"Cielo\":\"Cielo Parcialmente Nublado\"");
+  }
+  else{
+    Serial.print(",\"Cielo\":\"Cielo Totalmente Nublado\"");
+  }
+  Serial.print(",\"TemperaturaC\":");
+  Serial.print( tempC);
+  Serial.print(",\"TemperaturaF\":");
+  Serial.print( tempF);
+  Serial.println("}");
 }

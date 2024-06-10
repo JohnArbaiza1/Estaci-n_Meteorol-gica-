@@ -1,0 +1,134 @@
+[
+    {
+        "id": "27b085df6fc1fd97",
+        "type": "tab",
+        "label": "Flujo 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dde0a21417c0c7b9",
+        "type": "serial in",
+        "z": "27b085df6fc1fd97",
+        "name": "Estacion Meteorologica",
+        "serial": "4d292cb4968a6742",
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "ec24f7bea243d8fa"
+            ]
+        ]
+    },
+    {
+        "id": "ec24f7bea243d8fa",
+        "type": "json",
+        "z": "27b085df6fc1fd97",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 240,
+        "wires": [
+            [
+                "97054e739ceec2d1"
+            ]
+        ]
+    },
+    {
+        "id": "9e9258a5597e493b",
+        "type": "comment",
+        "z": "27b085df6fc1fd97",
+        "name": "Recepción (Dar doble click para ver info)",
+        "info": "Recibimos los datos generados por\nlos sensores a través del puerto serial.",
+        "x": 220,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "61eca49e5b9b9ac0",
+        "type": "comment",
+        "z": "27b085df6fc1fd97",
+        "name": "Conversión.(Dar doble click para ver info)",
+        "info": "Pasamos los datos recibidos al formato\ntipo JSON para su posterior envió \na firebase",
+        "x": 600,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "97054e739ceec2d1",
+        "type": "firebase modify",
+        "z": "27b085df6fc1fd97",
+        "name": "",
+        "firebaseconfig": "",
+        "childpath": "/DatosClima",
+        "method": "update",
+        "value": "msg.payload",
+        "priority": "msg.priority",
+        "x": 920,
+        "y": 380,
+        "wires": [
+            [
+                "696c1d633ac2c2cf"
+            ]
+        ]
+    },
+    {
+        "id": "b256a0ff4a47a521",
+        "type": "comment",
+        "z": "27b085df6fc1fd97",
+        "name": "Envió de datos. (Dar doble click para ver info)",
+        "info": "Enviamos los datos en formato\nJSON a la Realtime Databse hospedado\nen firebase.",
+        "x": 810,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "696c1d633ac2c2cf",
+        "type": "debug",
+        "z": "27b085df6fc1fd97",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "d7fd1e855cc3528c",
+        "type": "comment",
+        "z": "27b085df6fc1fd97",
+        "name": "Mostrando. (Dar doble click para ver info)",
+        "info": "Mostramos los datos que se enviaron\nen la consola de Node-Red.",
+        "x": 1160,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "4d292cb4968a6742",
+        "type": "serial-port",
+        "name": "Puerto",
+        "serialport": "COM3",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    }
+]
