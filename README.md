@@ -1,4 +1,4 @@
-# Estación_Meteorológica 
+# Estación_Meteorológica  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Umbrella.png" alt="Umbrella" width="25" height="25" />
 Proyecto Final Microprogramación 
 
 El presente proyecto consiste en la construcción de una estación meteorológica haciendo uso de algunos componentes electrónicos como sensores,
