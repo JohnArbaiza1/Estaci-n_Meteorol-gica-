@@ -1,6 +1,6 @@
 [
     {
-        "id": "27b085df6fc1fd97",
+        "id": "c6ad0d8ba8d8080c",
         "type": "tab",
         "label": "Flujo 2",
         "disabled": false,
@@ -8,23 +8,24 @@
         "env": []
     },
     {
-        "id": "dde0a21417c0c7b9",
+        "id": "9c8381a5505be8c4",
         "type": "serial in",
-        "z": "27b085df6fc1fd97",
+        "z": "c6ad0d8ba8d8080c",
         "name": "Estacion Meteorologica",
         "serial": "4d292cb4968a6742",
         "x": 160,
         "y": 180,
         "wires": [
             [
-                "ec24f7bea243d8fa"
+                "82f1482d45a08ef5",
+                "4e1ccacf4a9c93a4"
             ]
         ]
     },
     {
-        "id": "ec24f7bea243d8fa",
+        "id": "82f1482d45a08ef5",
         "type": "json",
-        "z": "27b085df6fc1fd97",
+        "z": "c6ad0d8ba8d8080c",
         "name": "",
         "property": "payload",
         "action": "",
@@ -33,14 +34,14 @@
         "y": 240,
         "wires": [
             [
-                "97054e739ceec2d1"
+                "a813c69b60e8dfbe"
             ]
         ]
     },
     {
-        "id": "9e9258a5597e493b",
+        "id": "6686d01ce4901235",
         "type": "comment",
-        "z": "27b085df6fc1fd97",
+        "z": "c6ad0d8ba8d8080c",
         "name": "Recepción (Dar doble click para ver info)",
         "info": "Recibimos los datos generados por\nlos sensores a través del puerto serial.",
         "x": 220,
@@ -48,9 +49,9 @@
         "wires": []
     },
     {
-        "id": "61eca49e5b9b9ac0",
+        "id": "96b876c87a7375e5",
         "type": "comment",
-        "z": "27b085df6fc1fd97",
+        "z": "c6ad0d8ba8d8080c",
         "name": "Conversión.(Dar doble click para ver info)",
         "info": "Pasamos los datos recibidos al formato\ntipo JSON para su posterior envió \na firebase",
         "x": 600,
@@ -58,37 +59,37 @@
         "wires": []
     },
     {
-        "id": "97054e739ceec2d1",
+        "id": "a813c69b60e8dfbe",
         "type": "firebase modify",
-        "z": "27b085df6fc1fd97",
+        "z": "c6ad0d8ba8d8080c",
         "name": "",
         "firebaseconfig": "",
         "childpath": "/DatosClima",
         "method": "update",
         "value": "msg.payload",
         "priority": "msg.priority",
-        "x": 920,
+        "x": 1120,
         "y": 380,
         "wires": [
             [
-                "696c1d633ac2c2cf"
+                "b4a82f954dfb4c87"
             ]
         ]
     },
     {
-        "id": "b256a0ff4a47a521",
+        "id": "d6a794b2ded699af",
         "type": "comment",
-        "z": "27b085df6fc1fd97",
+        "z": "c6ad0d8ba8d8080c",
         "name": "Envió de datos. (Dar doble click para ver info)",
         "info": "Enviamos los datos en formato\nJSON a la Realtime Databse hospedado\nen firebase.",
-        "x": 810,
-        "y": 320,
+        "x": 970,
+        "y": 340,
         "wires": []
     },
     {
-        "id": "696c1d633ac2c2cf",
+        "id": "b4a82f954dfb4c87",
         "type": "debug",
-        "z": "27b085df6fc1fd97",
+        "z": "c6ad0d8ba8d8080c",
         "name": "debug 2",
         "active": true,
         "tosidebar": true,
@@ -102,13 +103,514 @@
         "wires": []
     },
     {
-        "id": "d7fd1e855cc3528c",
+        "id": "8880e24bf579bb24",
         "type": "comment",
-        "z": "27b085df6fc1fd97",
+        "z": "c6ad0d8ba8d8080c",
         "name": "Mostrando. (Dar doble click para ver info)",
         "info": "Mostramos los datos que se enviaron\nen la consola de Node-Red.",
         "x": 1160,
         "y": 560,
+        "wires": []
+    },
+    {
+        "id": "4e1ccacf4a9c93a4",
+        "type": "json",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 230,
+        "y": 720,
+        "wires": [
+            [
+                "d71892becdcf8f7a",
+                "3d2d0112205137da",
+                "8005f9982287d2f0",
+                "ad29c969d02509f6",
+                "9b4d962dcd855d0f",
+                "08db3cca1505c6a9"
+            ]
+        ]
+    },
+    {
+        "id": "d71892becdcf8f7a",
+        "type": "function",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "DTH11",
+        "func": "msg.payload =  msg.payload.TemperaturaDTH11;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 640,
+        "wires": [
+            [
+                "79458064856c2aa3",
+                "a203800358c5f8fa"
+            ]
+        ]
+    },
+    {
+        "id": "79458064856c2aa3",
+        "type": "ui_gauge",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "",
+        "group": "e7069ff6b6486b9f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura DTH11",
+        "label": "centigrados",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 660,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "3d2d0112205137da",
+        "type": "function",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "LM35-Celcius",
+        "func": "msg.payload = msg.payload.TemperaturaC\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 680,
+        "wires": [
+            [
+                "4017546e7ee8e409",
+                "0dd837818dcc2368"
+            ]
+        ]
+    },
+    {
+        "id": "4017546e7ee8e409",
+        "type": "ui_gauge",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "",
+        "group": "eecec2137798986a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura LM35-Celcius",
+        "label": "celcius",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 680,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "66cf36146f05d3a2",
+        "type": "ui_gauge",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "",
+        "group": "65791fcf5065f692",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura LM35-Farenheit",
+        "label": "Farenheit",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 680,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "8005f9982287d2f0",
+        "type": "function",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "LM35-farenheit",
+        "func": "msg.payload = msg.payload.TemperaturaF;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 720,
+        "wires": [
+            [
+                "66cf36146f05d3a2",
+                "657333c3f56b9a5e"
+            ]
+        ]
+    },
+    {
+        "id": "a203800358c5f8fa",
+        "type": "ui_chart",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "",
+        "group": "e7069ff6b6486b9f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Grafica",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "30",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 880,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0dd837818dcc2368",
+        "type": "ui_chart",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "",
+        "group": "eecec2137798986a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Grafica",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "30",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 880,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "657333c3f56b9a5e",
+        "type": "ui_chart",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "",
+        "group": "65791fcf5065f692",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Grafica",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "30",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 880,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ad29c969d02509f6",
+        "type": "function",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "Humedad",
+        "func": "msg.payload = msg.payload.Humedad\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 760,
+        "wires": [
+            [
+                "d15ca52a01229e41"
+            ]
+        ]
+    },
+    {
+        "id": "d15ca52a01229e41",
+        "type": "ui_gauge",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "",
+        "group": "bbac82b682603f15",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "Humedad",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#49c2ca",
+            "#0026e6",
+            "#d7830f"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 620,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "9b4d962dcd855d0f",
+        "type": "function",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "Estado",
+        "func": "msg.payload = msg.payload.Estado;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 800,
+        "wires": [
+            [
+                "654b7848c9448e59"
+            ]
+        ]
+    },
+    {
+        "id": "08db3cca1505c6a9",
+        "type": "function",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "Cielo",
+        "func": "msg.payload = msg.payload.Cielo;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 840,
+        "wires": [
+            [
+                "e1aa332b8b651347"
+            ]
+        ]
+    },
+    {
+        "id": "654b7848c9448e59",
+        "type": "ui_text",
+        "z": "c6ad0d8ba8d8080c",
+        "group": "ea9e73765ff3e25d",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Estado Clima",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 630,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "a616c2eb57891715",
+        "type": "comment",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "Dashboard. (Dar doble click para ver info)",
+        "info": "En esta parte se encuentra el Panel de\nControl desarrollado para que el \nAdministrador maneje los datos.",
+        "x": 720,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "e1aa332b8b651347",
+        "type": "ui_text",
+        "z": "c6ad0d8ba8d8080c",
+        "group": "2d511e66987f20d7",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Estado Cielo",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 630,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "6c6195161930242f",
+        "type": "ui_template",
+        "z": "c6ad0d8ba8d8080c",
+        "group": "a8fd4de3b7ae600c",
+        "name": "Home",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "format": "<div>\n    <h1 style=\"text-align: center;\">Bienvenido de nuevo</h1>\n    <h2 style=\"text-align: center;\">Admin</h2>\n</div>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1170,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dcf68bb0468501c8",
+        "type": "comment",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "JSON Para extraer los datos (Dar doble click para ver info)",
+        "info": "Este segundo node de tipo json se usa para extraer\nlos datos y mandarlo a los nodos que forman\nparte del Dashboard.\n\nSe emplea un segundo JSON por el motivo que este\ncuenta con una configuración diferente al primero\nencargado de mandar los datos a Firebase.\n",
+        "x": 250,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "db2b17428e5f1393",
+        "type": "comment",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "Funciones (Dar doble click para ver info)",
+        "info": "En este grupo de funciones está el código\nque permite extraer los datos del objeto\ntipos JS según cada opción que se muestra\nen el panel de Administración ",
+        "x": 340,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "0d1572fb85020ffd",
+        "type": "comment",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "Elementos  (Dar doble click para ver info)",
+        "info": "Esto son cada uno de los elementos que\nreciben los datos por medio de las funciones\ny visualizan estos según la configuración\nimplementada. ",
+        "x": 900,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "d69f5a9c010c071e",
+        "type": "comment",
+        "z": "c6ad0d8ba8d8080c",
+        "name": "Home (Dar doble click para ver info)",
+        "info": "Templade donde se usa un poco de código HTML\npara el home del panel",
+        "x": 1180,
+        "y": 660,
         "wires": []
     },
     {
@@ -130,5 +632,118 @@
         "out": "char",
         "addchar": "",
         "responsetimeout": "10000"
+    },
+    {
+        "id": "e7069ff6b6486b9f",
+        "type": "ui_group",
+        "name": "DTH11-centigrados",
+        "tab": "433a62751e58306c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "eecec2137798986a",
+        "type": "ui_group",
+        "name": "LM35-celcius",
+        "tab": "433a62751e58306c",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "65791fcf5065f692",
+        "type": "ui_group",
+        "name": "LM35-farenheit",
+        "tab": "433a62751e58306c",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bbac82b682603f15",
+        "type": "ui_group",
+        "name": "DTH11-Humedad",
+        "tab": "b83bc6d43fab435d",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ea9e73765ff3e25d",
+        "type": "ui_group",
+        "name": "Estado1",
+        "tab": "4036605fbb7a1e37",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2d511e66987f20d7",
+        "type": "ui_group",
+        "name": "Estado2",
+        "tab": "4036605fbb7a1e37",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a8fd4de3b7ae600c",
+        "type": "ui_group",
+        "name": "Home",
+        "tab": "c671a68dde7e0279",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "433a62751e58306c",
+        "type": "ui_tab",
+        "name": "Temperaturas",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "b83bc6d43fab435d",
+        "type": "ui_tab",
+        "name": "Humedad",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "4036605fbb7a1e37",
+        "type": "ui_tab",
+        "name": "Estados",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "c671a68dde7e0279",
+        "type": "ui_tab",
+        "name": "Estación Meteorológica",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
     }
 ]
