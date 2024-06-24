@@ -33,10 +33,18 @@ Para poder ejecutar el proyecto sin ningún problema es necesario seguir los sig
 
   ## Instalación 🔧
 
- Para poder tener el proyecto solo clona nuestro repositorio y explora un poco el funcionamiento de este.
+  Para poder tener el proyecto solo clona nuestro repositorio y explora un poco el funcionamiento de este.
 
-```
- 
-```
+  ```
+   https://github.com/JohnArbaiza1/Estacion_Meteorologica
+  ```
+
+  ## Desarrolladores 💻📱
+   <img src="https://camo.githubusercontent.com/c2c315240a33d03dc80d0b793144cf88b2bf535fbdd6a1720b7aed2b63035adb/68747470733a2f2f696d672e6574696d672e636f6d2f7468756d622f6d7369642d38343134363035362c77696474682d313230302c6865696768742d3930302c696d6773697a652d3633383035332c726573697a656d6f64652d382f32303231303730365f646576656c6f7065722d65636f6e6f6d795f30312e6a7067" width="300px" >
+
+   ## Autores ✒️
+* John Elvis Arbaiza Velásquez  <a href="https://github.com/JohnArbaiza1" >JohnArbaiza1 </a>
+* Erick Adony López Meléndez <a href="https://github.com/lm21009UES" > lm21009UES </a>
+* Luis Emilio González Molina <a href="https://github.com/gnz-e" >gnz-e </a>     
 
 
